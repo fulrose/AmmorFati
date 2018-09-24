@@ -1,0 +1,10 @@
+Job launching after 0.08 seconds in submission.
+Running python job.
+Changed into dir /home/coala/spearmint/Spearmint/examples/simple
+Importing branin.py
+Running branin.main()
+Got result 4.8686230093
+Completed successfully in 0.00 seconds. [{u'main': 4.868623009304713}]
+Anything printed here will end up in the output directory for job #8
+{u'y': array([15.]), u'x': array([-4.14435781])}
+Result = 4.868623

@@ -1,0 +1,15 @@
+{
+    "language"        : "PYTHON",
+    "main-file"       : "knn_tmp.py",
+    "experiment-name" : "knn",
+    "likelihood"      : "NOISELESS",
+    "variables" : {
+        "n_neighbors" : {
+            "type" : "INT",
+            "size" : 1,
+            "min"  : 1,
+            "max"  : 50
+        }
+    }
+}
+

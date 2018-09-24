@@ -1,0 +1,26 @@
+Job launching after 0.11 seconds in submission.
+Running python job.
+Changed into dir /home/coala/spearmint/workspace/cisgenome
+Importing cisgenome.py
+Running cisgenome.main()
+Traceback (most recent call last):
+  File "/home/coala/spearmint/spearmint/launcher.py", line 243, in launch
+    result = python_launcher(job)
+  File "/home/coala/spearmint/spearmint/launcher.py", line 327, in python_launcher
+    result = module.main(job['id'], params)
+  File "/home/coala/spearmint/workspace/cisgenome/cisgenome.py", line 140, in main
+    return cisgenome(job_id, params['b'], params['w'], params['e'])
+  File "/home/coala/spearmint/workspace/cisgenome/cisgenome.py", line 123, in cisgenome
+    subprocess.check_output(cmd, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 217, in check_output
+    output, unused_err = process.communicate()
+  File "/usr/lib/python2.7/subprocess.py", line 475, in communicate
+    stdout = _eintr_retry_call(self.stdout.read)
+  File "/usr/lib/python2.7/subprocess.py", line 125, in _eintr_retry_call
+    return func(*args)
+KeyboardInterrupt
+Problem executing the function
+Job failed in 3.06 seconds.
+Anything printed here will end up in the output directory for job #42
+{u'b': array([5]), u'e': array([200]), u'w': array([1])}
+(<type 'exceptions.KeyboardInterrupt'>, KeyboardInterrupt(), <traceback object at 0x7ff8af52b290>)

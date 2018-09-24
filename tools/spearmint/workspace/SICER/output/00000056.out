@@ -1,0 +1,56 @@
+Job launching after 0.11 seconds in submission.
+Running python job.
+Changed into dir /home/coala/AmmorFati/tools/spearmint/workspace/SICER
+Importing sicer.py
+Running sicer.main()
+
+*** Preprocess raw files to remove reduntant reads
+cd /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/tmp_Treat_chr1_myTest.bam.3LzZhD.rm.bam_dir
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/remove_redundant_reads_bam.py -t 0 -b /home/coala/AmmorFati/chipData/Treat_chr1_myTest.bam -o /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/Treat_chr1_myTest.bam.3LzZhD.rm.bam -f 0 -F 4 -q 5
+
+cd /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/tmp_Control_chr1_myTest.bam.eymsAB.rm.bam_dir
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/remove_redundant_reads_bam.py -t 0 -b /home/coala/AmmorFati/chipData/Control_chr1_myTest.bam -o /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/Control_chr1_myTest.bam.eymsAB.rm.bam -f 0 -F 4 -q 5
+
+
+
+*** Partion the genome in windows
+cd /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/run-make-graph-file-by-chrom_bam.py -b /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/Treat_chr1_myTest.bam.3LzZhD.rm.bam -w 140 -i 100 -o /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/summary.bedgraph
+
+
+*** Find candidate islands exhibiting clustering
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/find_islands_in_pr.py --bam /home/coala/AmmorFati/chipData/Treat_chr1_myTest.bam -b /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/summary.bedgraph -w 140 -g 420 -t 0.1 -e 1000  -f /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/scoreisland.bed
+Window_size: 140
+Gap size: 420
+E value is: 1000.0
+Total read count: 505444.0
+Genome Length: 3099922541
+Effective genome Length: 309992254
+Window average: 0.228270736081
+Window pvalue: 0.2
+Minimum num of tags in a qualified window: 2
+Generate the enriched probscore summary graph and filter the summary graph to get rid of ineligible windows
+Determine the score threshold from random background
+The score threshold is: 9.316
+Make and write islands
+Total number of islands: 4109
+
+
+*** Calculate significance of candidate islands using the control library
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/associate_tags_with_chip_and_control_w_fc_q_bam.py -a /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/Treat_chr1_myTest.bam.3LzZhD.rm.bam -b /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/Control_chr1_myTest.bam.eymsAB.rm.bam -d /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/scoreisland.bed -f 100 -t 0.1 -o /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_XB9XWQ/island-summary.bed
+chip library size  505444
+control library size 754414
+
+Got result 0.7595098225798114
+Completed successfully in 18.17 seconds. [{u'branin': 0.7595098225798114}]
+Anything printed here will end up in the output directory for job #56
+{u'fs': array([100]), u'gs': array([0.1]), u'w': array([140])}
+('peak(result) - peak(label) matched: ', 102115, ' /  peak(result) - noPeak(label) matched: ', 685076)
+('totalPeakLength: ', 104820, '  /  totalNoPeakLength: ', 933723)
+('peakScore: ', 0.9741938561343255, '  /  noPeakScore: ', 0.7337036787141369)
+0.7595098225798114

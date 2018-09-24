@@ -1,0 +1,38 @@
+Job launching after 0.16 seconds in submission.
+Running python job.
+Changed into dir /home/coala/spearmint/workspace/swembl
+Importing swembl.py
+Running swembl.main()
+Traceback (most recent call last):
+  File "/home/coala/spearmint/spearmint/launcher.py", line 243, in launch
+    result = python_launcher(job)
+  File "/home/coala/spearmint/spearmint/launcher.py", line 327, in python_launcher
+    result = module.main(job['id'], params)
+  File "/home/coala/spearmint/workspace/swembl/swembl.py", line 148, in main
+    return swembl(params['f'], params['x'], params['m'])
+  File "/home/coala/spearmint/workspace/swembl/swembl.py", line 137, in swembl
+    caculated_rate = error_rate()
+  File "/home/coala/spearmint/workspace/swembl/swembl.py", line 112, in error_rate
+    arr_peak, arr_noPeak, arr_result, totalPeakLength, totalNoPeakLength = file_read()
+  File "/home/coala/spearmint/workspace/swembl/swembl.py", line 27, in file_read
+    result = pd.read_csv('swembl_result', sep='\t', header=None)
+  File "/home/coala/.local/lib/python2.7/site-packages/pandas/io/parsers.py", line 678, in parser_f
+    return _read(filepath_or_buffer, kwds)
+  File "/home/coala/.local/lib/python2.7/site-packages/pandas/io/parsers.py", line 446, in _read
+    data = parser.read(nrows)
+  File "/home/coala/.local/lib/python2.7/site-packages/pandas/io/parsers.py", line 1036, in read
+    ret = self._engine.read(nrows)
+  File "/home/coala/.local/lib/python2.7/site-packages/pandas/io/parsers.py", line 1848, in read
+    data = self._reader.read(nrows)
+  File "pandas/_libs/parsers.pyx", line 876, in pandas._libs.parsers.TextReader.read
+  File "pandas/_libs/parsers.pyx", line 891, in pandas._libs.parsers.TextReader._read_low_memory
+  File "pandas/_libs/parsers.pyx", line 945, in pandas._libs.parsers.TextReader._read_rows
+  File "pandas/_libs/parsers.pyx", line 932, in pandas._libs.parsers.TextReader._tokenize_rows
+  File "pandas/_libs/parsers.pyx", line 2112, in pandas._libs.parsers.raise_parser_error
+ParserError: Error tokenizing data. C error: Expected 11 fields in line 468, saw 18
+
+Problem executing the function
+Job failed in 1.90 seconds.
+Anything printed here will end up in the output directory for job #10
+{u'x': array([1.25]), u'm': array([34]), u'f': array([119])}
+(<class 'pandas.errors.ParserError'>, ParserError('Error tokenizing data. C error: Expected 11 fields in line 468, saw 18\n',), <traceback object at 0x7ff57a5bc320>)

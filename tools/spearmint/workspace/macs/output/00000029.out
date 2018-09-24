@@ -1,0 +1,128 @@
+Job launching after 0.12 seconds in submission.
+Running python job.
+Changed into dir /home/coala/spearmint/workspace/macs
+Importing macs.py
+Running macs.main()
+INFO  @ Thu, 20 Sep 2018 17:56:47: 
+# Command line: callpeak -t /home/coala/Documents/myData/Treat_chr1_myTest.bam -c /home/coala/Documents/myData/Control_chr1_myTest.bam --outdir ./temp --broad -f BAM -g hs -n test29 -q 0.3091593695240396 -m 10 100
+# ARGUMENTS LIST:
+# name = test29
+# format = BAM
+# ChIP-seq file = ['/home/coala/Documents/myData/Treat_chr1_myTest.bam']
+# control file = ['/home/coala/Documents/myData/Control_chr1_myTest.bam']
+# effective genome size = 2.70e+09
+# band width = 300
+# model fold = [10, 100]
+# qvalue cutoff for narrow/strong regions = 3.09e-01
+# qvalue cutoff for broad/weak regions = 1.00e-01
+# Larger dataset will be scaled towards smaller dataset.
+# Range for calculating regional lambda is: 1000 bps and 10000 bps
+# Broad region calling is on
+# Paired-End mode is off
+ 
+INFO  @ Thu, 20 Sep 2018 17:56:47: #1 read tag files... 
+INFO  @ Thu, 20 Sep 2018 17:56:47: #1 read treatment tags... 
+INFO  @ Thu, 20 Sep 2018 17:56:49: #1.2 read input tags... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 tag size is determined as 101 bps 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 tag size = 101 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1  total tags in treatment: 252722 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 user defined the maximum tags... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 filter out redundant tags at the same location and the same strand by allowing at most 1 tag(s) 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1  tags after filtering in treatment: 233395 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1  Redundant rate of treatment: 0.08 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1  total tags in control: 377207 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 user defined the maximum tags... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 filter out redundant tags at the same location and the same strand by allowing at most 1 tag(s) 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1  tags after filtering in control: 374736 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1  Redundant rate of control: 0.01 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #1 finished! 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2 Build Peak Model... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2 looking for paired plus/minus strand peaks... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2 number of paired peaks: 2701 
+INFO  @ Thu, 20 Sep 2018 17:56:51: start model_add_line... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: start X-correlation... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: end of X-cor 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2 finished! 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2 predicted fragment length is 298 bps 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2 alternative fragment length(s) may be 298 bps 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #2.2 Generate R script for model : ./temp/test29_model.r 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #3 Call peaks... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #3 Call broad peaks with given level1 -log10qvalue cutoff and level2: 0.509818, 1.000000... 
+INFO  @ Thu, 20 Sep 2018 17:56:51: #3 Pre-compute pvalue-qvalue table... 
+INFO  @ Thu, 20 Sep 2018 17:56:52: #3 Call peaks for each chromosome... 
+INFO  @ Thu, 20 Sep 2018 17:56:53: #4 Write output xls file... ./temp/test29_peaks.xls 
+INFO  @ Thu, 20 Sep 2018 17:56:53: #4 Write broad peak in broadPeak format file... ./temp/test29_peaks.broadPeak 
+INFO  @ Thu, 20 Sep 2018 17:56:53: #4 Write broad peak in bed12/gappedPeak format file... ./temp/test29_peaks.gappedPeak 
+INFO  @ Thu, 20 Sep 2018 17:56:53: Done! 
+Got result 0.6840595386265551
+Completed successfully in 6.47 seconds. [{u'branin': 0.6840595386265551}]
+Anything printed here will end up in the output directory for job #29
+{u'q': array([0.30915937]), u'm_min': array([10]), u'm_max': array([100])}
+        start       end
+0    40039125  40042466
+1    40045543  40049765
+2    40051058  40053020
+3    40063764  40077801
+4    40096915  40097374
+5    40160927  40161746
+6    40194225  40195034
+7    40209753  40210644
+8    40212196  40212619
+9    40215445  40219032
+10   40221499  40221874
+11   40227839  40228483
+12   40232845  40234432
+13   40237646  40243298
+14   40257039  40258970
+15   40270580  40271410
+16   40294188  40296902
+17   40373311  40374896
+18   40383067  40384173
+19   40387985  40393455
+20   40410083  40411040
+21   40415077  40415532
+22   40416915  40420351
+23   40421673  40428240
+24   40449668  40451235
+25   40463354  40464881
+26   40471243  40471548
+27   40476908  40477616
+28   40508388  40508966
+29   40531080  40531940
+..        ...       ...
+393  54762767  54764624
+394  54839649  54862794
+395  54864460  54875455
+396  54886765  54887660
+397  55039327  55039871
+398  55048078  55072066
+399  55086020  55088590
+400  55102731  55103354
+401  55107048  55107409
+402  55122405  55122930
+403  55124759  55126530
+404  55154906  55155326
+405  55160161  55160610
+406  55213952  55216039
+407  56516797  56517287
+408  58546194  58547024
+409  58653556  58654629
+410  58655919  58657403
+411  58658788  58659613
+412  58661473  58662411
+413  58678587  58682373
+414  58685135  58685905
+415  58691184  58692331
+416  58696737  58700294
+417  58778628  58785313
+418  58815312  58816886
+419  58883495  58883882
+420  58903317  58904146
+421  59296376  59297814
+422  59653391  59653884
+
+[423 rows x 2 columns]
+('peak(result) - peak(label) matched: ', 41747, ' /  peak(result) - noPeak(label) matched: ', 76876)
+('totalPeakLength: ', 104820, '  /  totalNoPeakLength: ', 933723)
+('peakScore: ', 0.39827323029956113, '  /  noPeakScore: ', 0.0823327689261162)
+0.6840595386265551

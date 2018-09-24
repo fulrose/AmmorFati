@@ -1,0 +1,46 @@
+Job launching after 0.11 seconds in submission.
+Running python job.
+Changed into dir /home/coala/AmmorFati/tools/spearmint/workspace/SICER
+Importing sicer.py
+Running sicer.main()
+
+*** Preprocess raw files to remove reduntant reads
+cd /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_Jpv8v1/tmp_Treat_chr1_myTest.bam.EgQBMv.rm.bam_dir
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/remove_redundant_reads_bam.py -t 0 -b /home/coala/AmmorFati/chipData/Treat_chr1_myTest.bam -o /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_Jpv8v1/Treat_chr1_myTest.bam.EgQBMv.rm.bam -f 0 -F 4 -q 5
+
+cd /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_Jpv8v1/tmp_Control_chr1_myTest.bam._VL2At.rm.bam_dir
+export PYTHONPATH=/home/coala/AmmorFati/tools/SICERpy/SICERpy/lib
+/usr/bin/python2 /home/coala/AmmorFati/tools/SICERpy/SICERpy/src/remove_redundant_reads_bam.py -t 0 -b /home/coala/AmmorFati/chipData/Control_chr1_myTest.bam -o /home/coala/AmmorFati/tools/spearmint/workspace/SICER/tmp_sicer_Jpv8v1/Control_chr1_myTest.bam._VL2At.rm.bam -f 0 -F 4 -q 5
+
+Traceback (most recent call last):
+  File "/home/coala/AmmorFati//tools/SICERpy/SICERpy/SICER.py", line 151, in <module>
+Traceback (most recent call last):
+  File "/home/coala/AmmorFati/tools/spearmint/spearmint/launcher.py", line 243, in launch
+    stdout, stderr= p.communicate()
+  File "/usr/lib/python2.7/subprocess.py", line 483, in communicate
+    return self._communicate(input)
+  File "/usr/lib/python2.7/subprocess.py", line 1124, in _communicate
+    result = python_launcher(job)
+  File "/home/coala/AmmorFati/tools/spearmint/spearmint/launcher.py", line 327, in python_launcher
+    result = module.main(job['id'], params)
+    stdout, stderr = self._communicate_with_poll(input)
+  File "/usr/lib/python2.7/subprocess.py", line 1178, in _communicate_with_poll
+  File "/home/coala/AmmorFati/tools/spearmint/workspace/SICER/sicer.py", line 158, in main
+    return sicer(job_id, params['gs'], params['w'], params['fs'])
+  File "/home/coala/AmmorFati/tools/spearmint/workspace/SICER/sicer.py", line 141, in sicer
+    subprocess.check_output(cmd, shell=True)
+  File "/usr/lib/python2.7/subprocess.py", line 217, in check_output
+    output, unused_err = process.communicate()
+    ready = poller.poll()
+KeyboardInterrupt
+  File "/usr/lib/python2.7/subprocess.py", line 475, in communicate
+    stdout = _eintr_retry_call(self.stdout.read)
+  File "/usr/lib/python2.7/subprocess.py", line 125, in _eintr_retry_call
+    return func(*args)
+KeyboardInterrupt
+Problem executing the function
+Job failed in 3.08 seconds.
+Anything printed here will end up in the output directory for job #77
+{u'fs': array([100]), u'gs': array([0.13014349]), u'w': array([137])}
+(<type 'exceptions.KeyboardInterrupt'>, KeyboardInterrupt(), <traceback object at 0x7feb88a92170>)

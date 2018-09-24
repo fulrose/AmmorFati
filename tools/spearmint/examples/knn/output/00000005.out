@@ -1,0 +1,10 @@
+Job launching after 0.10 seconds in submission.
+Running python job.
+Changed into dir /home/coala/spearmint/Spearmint/examples/knn
+Importing knn_tmp.py
+Running knn_tmp.main()
+Got result -0.9736842105263158
+Completed successfully in 0.12 seconds. [{u'main': -0.9736842105263158}]
+job #5
+{u'n_neighbors': array([16])}
+Result =0.97 
