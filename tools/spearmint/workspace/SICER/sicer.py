@@ -146,8 +146,8 @@ def sicer(job_id, gs, w, fs):
     print(caculated_rate)
     #time.sleep(np.random.randint(60))
 
-    #cmd_rm = 'rm ./temp/test' + str(job_id) + '*'
-    #subprocess.check_output(cmd_rm, shell=True)
+    cmd_rm = 'rm ./temp/test' + str(job_id) + '*'
+    subprocess.check_output(cmd_rm, shell=True)
 
     return caculated_rate
 

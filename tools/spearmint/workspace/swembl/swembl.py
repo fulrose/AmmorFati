@@ -2,15 +2,14 @@ import numpy as np
 import math
 import subprocess
 
-dataPath = '/home/coala/Documents/myData/'
+dataPath = '$AMMOR_HOME/chipData/'
+
 treat = 'Treat_chr1_myTest.bed'
 control = 'Control_chr1_myTest.bed'
-swemblPath = '/home/coala/Documents/swembl/'
 
 import pandas as pd
 
 def file_read(job_id):
-    label = pd.read_csv('labeled_0912', sep='\t', header=None)
 
     tmp_file = open('swembl_test', 'r')
     swembl_result = open('swembl_result', 'w')
@@ -121,12 +120,18 @@ def error_rate(job_id):
 
 def swembl(job_id, f, x, m):
 
+    swemblPath = '$AMMOR_HOME/tools/swembl/'
+ 
     frag_length = f[0]
     penalty_ref = x[0]
     min_readCnt = m[0]
 
-    # cmd = 'macs2 callpeak -t ' + dataPath + treat + ' -c ' + dataPath + control + ' --broad -f BAM -g hs -n test'
-    cmd = swemblPath + 'SWEMBL -i ' + dataPath + treat + ' -r ' + dataPath + control + ' -B -o swembl_test'
+    cmd = swemblPath + 'SWEMBL'
+
+    cmd += ' -i ' + dataPath + treat
+    cmd += ' -r ' + dataPath + control
+    cmd += ' -B '
+    cmd += ' -o ' + 'swembl_test'
     cmd += ' -f ' + str(frag_length)
     cmd += ' -x ' + str(penalty_ref)
     cmd += ' -m ' + str(min_readCnt)
