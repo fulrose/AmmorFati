@@ -1,0 +1,42 @@
+{
+    "language"        : "PYTHON",
+    "experiment-name" : "macs_test",
+    "polling-time"    : 1,
+    "resources" : {
+        "my-machine" : {
+            "scheduler"         : "local",
+            "max-concurrent"    : 4,
+            "max-finished-jobs" : 100
+        }
+    },
+
+    "tasks": {
+      "branin" : {
+          "type"       : "OBJECTIVE",
+          "likelihood" : "NOISELESS",
+          "main-file"  : "macs.py",
+          "resources"  : ["my-machine"]
+      }
+    },
+
+    "variables" : {
+        "q" : {
+            "type" : "FLOAT",
+            "size" : 1,
+            "min"  : 0.001,
+            "max"  : 0.5
+        },
+      	"m_min" : {
+      	    "type" : "INT",
+      	    "size" : 1,
+      	    "min" : 1,
+      	    "max" : 10
+       	},
+        "m_max" : {
+            "type" : "INT",
+            "size" : 1,
+            "min" : 20,
+            "max" : 100
+      }
+    }
+  }

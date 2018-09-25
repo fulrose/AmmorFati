@@ -57,7 +57,10 @@ echo "----------------------------------------"
 echo ""
 echo "Run Spearmint..."
 echo ""
-echo "1. macs2"
+echo "----------------------------------------"
+echo "#1 macs2 optimizing start !"
+echo ""
+
 
 
 

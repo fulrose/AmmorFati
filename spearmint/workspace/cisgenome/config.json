@@ -1,0 +1,40 @@
+{
+    "language"        : "PYTHON",
+    "experiment-name" : "cisgenome_test",
+    "polling-time"    : 1,
+    "resources" : {
+        "my-machine" : {
+            "scheduler"         : "local",
+            "max-concurrent"    : 4,
+            "max-finished-jobs" : 100
+        }
+    },
+    "tasks": {
+      "branin" : {
+          "type"       : "OBJECTIVE",
+          "likelihood" : "NOISELESS",
+          "main-file"  : "cisgenome.py",
+          "resources"  : ["my-machine"]
+      }
+    },
+    "variables" : {
+        "b" : {
+            "type" : "INT",
+            "size" : 1,
+            "min"  : 5,
+            "max"  : 20
+        },
+      	"w" : {
+      	    "type" : "INT",
+      	    "size" : 1,
+      	    "min" : 1,
+      	    "max" : 10
+     	  },
+        "e" : {
+            "type" : "INT",
+            "size" : 1,
+            "min" : 50,
+            "max" : 200
+        }
+    }
+}
