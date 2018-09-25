@@ -1,8 +1,12 @@
 #!bin/sh
 
 CHIPPATH="${AMMOR_HOME}/chipData/"
+
 BAMPATH="${AMMOR_HOME}/tools/bamtools/build/install/bin/"
 CISGENOMEPATH="${AMMOR_HOME}/tools/cisgenome/bin/"
+MACS2PATH="${AMMOR_HOME}/tools/macs/bin/"
+SICERPATH="${AMMOR_HOME}/tools/SICERpy/SICERpy/"
+SWEMBLPATH="${AMMOR_HOME}/tools/swembl/"
 
 echo "AMMOR HOME ::"
 echo $AMMOR_HOME
@@ -51,6 +55,20 @@ echo "Data Preprocessing Done !"
 echo ""
 echo "----------------------------------------"
 echo ""
+echo "Run Spearmint..."
+echo ""
+echo "1. macs2"
 
+
+
+
+echo "----------------------------------------"
+
+
+
+
+echo "----------------------------------------"
+echo "----------------------------------------"
+echo "----------------------------------------"
 
 
