@@ -1,3 +1,0 @@
-/home/coala/Documents/myData/cisgenome_test/Control_chr1_myTest.aln	0
-/home/coala/Documents/myData/cisgenome_test/Treat_chr1_myTest.aln	1
-

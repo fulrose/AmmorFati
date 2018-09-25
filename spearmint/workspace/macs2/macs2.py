@@ -1,17 +1,23 @@
 import numpy as np
 import math
 import subprocess
+import os
 
-dataPath = '/home/coala/Documents/myData/'
-treat = 'Treat_chr1_myTest.bam'
-control = 'Control_chr1_myTest.bam'
+#dataPath = '/home/coala/Documents/myData/'
+#treat = 'Treat_chr1_myTest.bam'
+#control = 'Control_chr1_myTest.bam'
+
+treat = os.getenv('treat_bam')
+control = os.getenv('control_bam')
+labeledData = os.getenv('myLabeled')
+MACS2PATH  = os.getenv('MACS2PATH')
 
 import pandas as pd
 
 def file_read(job_id):
     f_name = './temp/test' + str(job_id) + '_peaks.broadPeak'
 
-    label = pd.read_csv('labeled_0912', sep='\t', header=None)
+    label = pd.read_csv(labeledData, sep='\t', header=None)
     result = pd.read_csv(f_name, sep='\t', header=None)
 
     label.columns = ['a', 'start', 'end', 'label']
@@ -108,13 +114,20 @@ def error_rate(job_id):
     return 1 - rate
 
 
-def macs(job_id, q, m_min, m_max):
+def macs2(job_id, q, m_min, m_max):
 
     q_value = q[0]
     mfold_min = m_min[0]
     mfold_max = m_max[0]
 
-    cmd = 'macs2 callpeak -t ' + dataPath + treat + ' -c ' + dataPath + control + ' --outdir ./temp --broad -f BAM -g hs -n test' + str(job_id)
+    cmd = MACS2PATH + 'macs2 callpeak' 
+    cmd += ' -t ' + treat
+    cmd += ' -c ' + control
+    cmd += ' --outdir ./temp' 
+    cmd += ' --broad '
+    cmd += ' -f BAM '
+    cmd += ' -g hs'
+    cmd += ' -n test' + str(job_id)
     cmd += ' -q ' + str(q_value)
     cmd += ' -m ' + str(mfold_min) + ' ' + str(mfold_max)
 
@@ -135,4 +148,4 @@ def macs(job_id, q, m_min, m_max):
 def main(job_id, params):
     print 'Anything printed here will end up in the output directory for job #%d' % job_id
     print params
-    return macs(job_id, params['q'], params['m_min'], params['m_max'])
+    return macs2(job_id, params['q'], params['m_min'], params['m_max'])

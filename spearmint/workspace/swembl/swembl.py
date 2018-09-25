@@ -1,36 +1,37 @@
 import numpy as np
 import math
 import subprocess
+import os
 
-dataPath = '$AMMOR_HOME/chipData/'
+#dataPath = '$AMMOR_HOME/chipData/'
+#treat = 'Treat_chr1_myTest.bed'
+#control = 'Control_chr1_myTest.bed'
 
-treat = 'Treat_chr1_myTest.bed'
-control = 'Control_chr1_myTest.bed'
+treat = os.getenv('treat_bed')
+control = os.getenv('control_bed')
+labeledData = os.getenv('myLabeled')
+SWEMBLPATH  = os.getenv('SWEMBLPATH')
 
 import pandas as pd
 
 def file_read(job_id):
 
-    tmp_file = open('swembl_test', 'r')
-    swembl_result = open('swembl_result', 'w')
+    f_name = './temp/test' + str(job_id) + '.bed'
+
+    label = pd.read_csv(labeledData, sep='\t', header=None)
+    result = pd.DataFrame(columns=["start", "end"])
+
+    tmp_file = open(f_name, 'r')
 
     lines = tmp_file.readlines()
     for line in lines:
         if line[0] == 'c':
-            swembl_result.write(line)
+            list_ = line.split()
+            result = result.append({'start': int(list_[1]), 'end': int(list_[2])}, ignore_index=True)
     tmp_file.close()
-    swembl_result.close()
-
-    label = pd.read_csv('labeled_0912', sep='\t', header=None)
-    result = pd.read_csv('swembl_result', sep='\t', header=None)
 
     label.columns = ['a', 'start', 'end', 'label']
-    result.columns = ['Region', 'start', 'End', 'Count', 'Length', 'Unique pos.', 'Score', 'Ref. count', 'Max. Coverage', 'Summit', 'P value']
-
     label = label.drop(['a'], axis=1)
-    result = result.drop(['Region', 'Count', 'Length', 'Unique pos.', 'Score', 'Ref. count', 'Max. Coverage', 'Summit', 'P value'], axis=1)
-
-    print(result)
 
     label_peak = pd.DataFrame(columns=['start', 'end'])
     label_noPeak = pd.DataFrame(columns=['start', 'end'])
@@ -62,7 +63,6 @@ def file_read(job_id):
     arr_result = result.values
 
     return arr_peak, arr_noPeak, arr_result, totalPeakLength, totalNoPeakLength
-
 
 def is_overlap(label_start, label_end, result_start, result_end):
     if (label_start < result_end < label_end or label_start < result_start < label_end or
@@ -120,18 +120,16 @@ def error_rate(job_id):
 
 def swembl(job_id, f, x, m):
 
-    swemblPath = '$AMMOR_HOME/tools/swembl/'
- 
     frag_length = f[0]
     penalty_ref = x[0]
     min_readCnt = m[0]
 
-    cmd = swemblPath + 'SWEMBL'
+    cmd = SWEMBLPATH + 'SWEMBL'
 
-    cmd += ' -i ' + dataPath + treat
-    cmd += ' -r ' + dataPath + control
+    cmd += ' -i ' + treat
+    cmd += ' -r ' + control
     cmd += ' -B '
-    cmd += ' -o ' + 'swembl_test'
+    cmd += ' -o ' + './temp/test' + str(job_id) + '.bed'
     cmd += ' -f ' + str(frag_length)
     cmd += ' -x ' + str(penalty_ref)
     cmd += ' -m ' + str(min_readCnt)
@@ -139,10 +137,13 @@ def swembl(job_id, f, x, m):
     subprocess.check_output(cmd, shell=True)
 
     caculated_rate = error_rate(job_id)
-    # caculated_rate = 0.5
-
-    print 'Result = %f' % caculated_rate
+    
+    print(caculated_rate)
     #time.sleep(np.random.randint(60))
+    
+    cmd_rm = 'rm ./temp/test' + str(job_id) + '*'
+    subprocess.check_output(cmd_rm, shell=True)
+
     return caculated_rate
 
 # Write a function like this called 'main'

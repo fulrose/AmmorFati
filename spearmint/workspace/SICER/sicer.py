@@ -1,12 +1,16 @@
 import numpy as np
 import math
 import subprocess
+import os
 
 #dataPath = '/home/coala/Documents/myData/'
-dataPath = '$AMMOR_HOME/chipData/'
+#treat = 'Treat_chr1_myTest.bam'
+#control = 'Control_chr1_myTest.bam'
 
-treat = 'Treat_chr1_myTest.bam'
-control = 'Control_chr1_myTest.bam'
+treat = os.getenv('treat_bam')
+control = os.getenv('control_bam')
+labeledData = os.getenv('myLabeled')
+SICERPATH = os.getenv('SICERPATH')
 
 import pandas as pd
 
@@ -14,7 +18,7 @@ def file_read(job_id):
 
     f_name = './temp/test' + str(job_id) + '.bed'
 
-    label = pd.read_csv('labeled_0912', sep='\t', header=None)
+    label = pd.read_csv(labeledData, sep='\t', header=None)
     result = pd.read_csv(f_name, sep='\t', header=None)
 
     label.columns = ['a', 'start', 'end', 'label']
@@ -124,15 +128,13 @@ def error_rate(job_id):
 
 
 def sicer(job_id, gs, w, fs):
-    sicerPath = '$AMMOR_HOME/tools/SICERpy/SICERpy/'
-
     genome_size = gs[0]
     window_size = w[0]
     frag_size   = fs[0]
 
-    cmd = 'python2 ' + sicerPath + 'SICER.py '
-    cmd += ' -t '   + dataPath + treat 
-    cmd += ' -c '   + dataPath + control
+    cmd = 'python2 ' + SICERPATH + 'SICER.py '
+    cmd += ' -t '   + treat 
+    cmd += ' -c '   + control
     cmd += ' -gs '  + str(genome_size)
     cmd += ' -w '   + str(window_size)
     cmd += ' -fs '  + str(frag_size)

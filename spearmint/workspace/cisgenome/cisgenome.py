@@ -1,19 +1,24 @@
 import numpy as np
 import math
 import subprocess
+import os
 
-dataPath = '/home/coala/Documents/myData/cisgenome_test'
-treat = 'Treat_chr1_myTest.aln'
-control = 'Control_chr1_myTest.aln'
-cisPath = '/home/coala/Documents/cisgenome_project/bin/'
-fileList = 'cisfilelist.txt'
+#dataPath = '/home/coala/Documents/myData/cisgenome_test'
+#treat = 'Treat_chr1_myTest.aln'
+#control = 'Control_chr1_myTest.aln'
+#cisPath = '/home/coala/Documents/cisgenome_project/bin/'
+#fileList = 'cisfilelist.txt'
+
+labeledData = os.getenv('myLabeled')
+CISGENOMEPATH  = os.getenv('CISGENOMEPATH')
+CISGENOMELIST = os.getenv('cisgenome_list')
 
 import pandas as pd
 
 def file_read(job_id):
-    f_name = './temp/myTest' + str(job_id) + '_peak.cod'
+    f_name = './temp/test' + str(job_id) + '_peak.cod'
 
-    label = pd.read_csv('labeled_0912', sep='\t', header=None)
+    label = pd.read_csv(labeledData, sep='\t', header=None)
     result = pd.read_csv(f_name, sep='\t', header=0)
 
     label.columns = ['a', 'start', 'end', 'label']
@@ -111,13 +116,14 @@ def error_rate(job_id):
 
 def cisgenome(job_id, b, w, e):
 
-
-
     binSize = b[0]
     windowSize = w[0]
     ext_length = e[0]
 
-    cmd = 'seqpeak -i ' + fileList + ' -d ./temp -o myTest' + str(job_id)
+    cmd = CISGENOMEPATH + 'seqpeak'
+    cmd += ' -i ' + CISGENOMELIST
+    cmd += ' -d ./temp'
+    cmd += ' -o test' + str(job_id)
     cmd += ' -b ' + str(binSize)
     cmd += ' -w ' + str(windowSize)
     cmd += ' -e ' + str(ext_length)
@@ -127,7 +133,7 @@ def cisgenome(job_id, b, w, e):
     caculated_rate = error_rate(job_id)
     # caculated_rate = 0.5
 
-    cmd_rm = 'rm ./temp/myTest' + str(job_id) + '*'
+    cmd_rm = 'rm ./temp/test' + str(job_id) + '*'
     subprocess.check_output(cmd_rm, shell=True)
 
     print(caculated_rate)

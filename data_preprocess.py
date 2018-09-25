@@ -7,6 +7,11 @@ treat           = sys.argv[1]
 control         = sys.argv[2]
 bamPath         = sys.argv[3]
 cisgenomePath   = sys.argv[4]
+chipPath        = sys.argv[5]
+
+chrNum   = 'chr1'
+chrStart = 40000000
+chrEnd   = 60000000
 
 print '----------------------------------------'
 print 'Data Preprocessing'
@@ -21,9 +26,10 @@ try:
     print 'Filtering(slicing) the Treat file...'
 
     cmd_filter = bamPath + 'bamtools filter'
-    cmd_filter += ' -in '      + treat  
-    cmd_filter += ' -out '     + treat[:-4] + '_filtered.bam'
-    cmd_filter += ' -region '  + 'chr1:40000000..41000000'
+    cmd_filter += ' -in '     + treat  
+    cmd_filter += ' -out '    + treat[:-4] + '_filtered.bam'
+    cmd_filter += ' -region ' + chrNum + ':' + str(chrStart) + '..' + str(chrEnd)
+    #cmd_filter += ' -region ' + 'chr1:40000000..60000000'
 
     #print cmd_filter
     output = subprocess.call(cmd_filter, shell=True)
@@ -56,7 +62,8 @@ try:
     cmd_filter = bamPath + 'bamtools filter'
     cmd_filter += ' -in '      + control  
     cmd_filter += ' -out '     + control[:-4] + '_filtered.bam'
-    cmd_filter += ' -region '  + 'chr1:40000000..41000000'
+    cmd_filter += ' -region ' + chrNum + ':' + str(chrStart) + '..' + str(chrEnd)
+    #cmd_filter += ' -region '  + 'chr1:40000000..60000000'
 
     #print cmd_filter
     output = subprocess.call(cmd_filter, shell=True)
@@ -96,10 +103,18 @@ try:
     cmd_bed2aln += ' -o ' + control[:-4] + '_filtered.aln'
 
     output = subprocess.call(cmd_bed2aln, shell=True)
- 
+
     if (output != 0) :
         raise exception('Control aln generating error..')
+ 
+    cmd_filelist = 'echo "' 
+    cmd_filelist += control[:-4] + '_filtered.bed\t0\n'
+    cmd_filelist += treat[:-4] + '_filtered.bed\t1"'
+    cmd_filelist += ' > ' + chipPath + 'cisgenome_list.txt'
   
+    output = subprocess.call(cmd_filelist, shell=True)
+
+ 
     print 'Generating aln is done !!'
     print '----------------------------------------'
     print ''
