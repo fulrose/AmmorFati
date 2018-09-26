@@ -17,53 +17,75 @@ echo $AMMOR_HOME
 echo ""
 
 treat=`realpath $1`
-ls $treat
-
-if [ $? -ne 0 ]; then
+if [ ! -f "$treat" ]; then
 	echo "error about treat file"
 	exit 1
 fi
 
 control=`realpath $2`
-ls $control
-if [ $? -ne 0 ]; then
+if [ ! -f "$control" ]; then
 	echo "error about control file"
 	exit 1
 fi
 
-labeled=`realpath $3`
-ls $labeled
-if [ $? -ne 0 ]; then
-	echo "error about labeled file"
+train_labeled=`realpath $3`
+if [ ! -f "$train_labeled" ]; then
+	echo "error about train labeled file"
 	exit 1
 fi
+train_file=`basename $train_labeled`
+
+test_labeled=`realpath $4`
+if [ ! -f "$test_labeled" ]; then
+	echo "error about test labeled file"
+	exit 1
+fi
+test_file=`basename $test_labeled`
+
 
 echo ""
 echo "Data Preprocessing Start !"
 
-#python2 ${AMMOR_HOME}/data_preprocess.py ${treat} ${control} ${BAMPATH} ${CISGENOMEPATH} ${CHIPPATH}
+#python2 ${AMMOR_HOME}/data_preprocess.py ${treat} ${control} ${BAMPATH} ${CHIPPATH} ${train_file} ${test_file}
 
 #echo "$dataPreprocess"
 
-export treat_bam=${treat%%.bam}_filtered.bam
-export control_bam=${control%%.bam}_filtered.bam
+export treat_train_bam=${treat%%.bam}_filtered_train.bam
+export control_train_bam=${control%%.bam}_filtered_train.bam
 
-export treat_bed=${treat%%.bam}_filtered.bed
-export control_bed=${control%%.bam}_filtered.bed
+export treat_train_bed=${treat%%.bam}_filtered_train.bed
+export control_train_bed=${control%%.bam}_filtered_train.bed
 
-export treat_aln=${treat%%.bam}_filtered.aln
-export control_aln=${control%%.bam}_filtered.aln
-
-export myLabeled=$labeled
-export cisgenome_list=${CHIPPATH}cisgenome_list.txt
+export treat_train_aln=${treat%%.bam}_filtered_train.aln
+export control_train_aln=${control%%.bam}_filtered_train.aln
 
 
-#echo $treat_bam
-#echo $control_bam
-#echo $treat_bed
-#echo $control_bed
-#echo $treat_aln
-#echo $control_aln
+export treat_test_bam=${treat%%.bam}_filtered_test.bam
+export control_test_bam=${control%%.bam}_filtered_test.bam
+
+export treat_test_bed=${treat%%.bam}_filtered_test.bed
+export control_test_bed=${control%%.bam}_filtered_test.bed
+
+export treat_test_aln=${treat%%.bam}_filtered_test.aln
+export control_test_aln=${control%%.bam}_filtered_test.aln
+
+
+export trainLabeled=$train_labeled
+export testLabeled=$test_labeled
+
+export cisgenome_train_list=${CHIPPATH}cisgenome_train_list.txt
+export cisgenome_test_list=${CHIPPATH}cisgenoe_test_list.txt
+
+echo $treat_bam
+echo $control_bam
+echo $treat_bed
+echo $control_bed
+echo $treat_aln
+echo $control_aln
+echo $trainLabeled
+echo $testLabeled
+echo $cisgenome_train_list
+echo $cisgenome_test_list
 
 echo "Data Preprocessing Done !"
 echo ""
@@ -75,25 +97,25 @@ echo ""
 echo "----------------------------------------"
 echo "#1 macs2 optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
 echo ""
 echo "#1 macs2 Done!" 
 echo "----------------------------------------"
 echo "#2 swembl optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
 echo ""
 echo "#2 swembl Done!" 
 echo "----------------------------------------"
 echo "#3 cisgenome optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
 echo ""
 echo "#3 cisgenome Done!" 
 echo "----------------------------------------"
 echo "#4 SICER optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
 echo ""
 echo "#4 SICER Done!"
 echo "----------------------------------------"

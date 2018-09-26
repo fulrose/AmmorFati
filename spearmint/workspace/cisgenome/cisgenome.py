@@ -9,9 +9,9 @@ import os
 #cisPath = '/home/coala/Documents/cisgenome_project/bin/'
 #fileList = 'cisfilelist.txt'
 
-labeledData = os.getenv('myLabeled')
+labeledData = os.getenv('trainLabeled')
 CISGENOMEPATH  = os.getenv('CISGENOMEPATH')
-CISGENOMELIST = os.getenv('cisgenome_list')
+CISGENOMELIST = os.getenv('cisgenome_train_list')
 
 import pandas as pd
 

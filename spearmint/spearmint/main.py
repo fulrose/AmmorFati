@@ -259,8 +259,10 @@ def main():
     db_address = options['database']['address']
     sys.stderr.write('Using database at %s.\n' % db_address)
     db         = MongoDB(database_address=db_address)
+   
+    job1 = load_jobs(db, experiment_name)
+    current_completed_jobs = resources.values()[0].numComplete(job1)
     
-    current_completed_jobs = 0
     while True:
         
         for resource_name, resource in resources.iteritems():
@@ -309,13 +311,13 @@ def main():
 
         # If no resources are accepting jobs, sleep
         # (they might be accepting if suggest takes a while and so some jobs already finished by the time this point is reached)
-        if tired(db, experiment_name, resources):
-            time.sleep(options.get('polling-time', 5))
-        
         if current_completed_jobs >= resources.values()[0].max_finished_jobs :
             print 'Done...'
             break ;
 
+        if tired(db, experiment_name, resources):
+            time.sleep(options.get('polling-time', 5))
+        
 def tired(db, experiment_name, resources):
     """
     return True if no resources are accepting jobs

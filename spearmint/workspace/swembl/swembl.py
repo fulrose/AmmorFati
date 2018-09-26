@@ -7,9 +7,9 @@ import os
 #treat = 'Treat_chr1_myTest.bed'
 #control = 'Control_chr1_myTest.bed'
 
-treat = os.getenv('treat_bed')
-control = os.getenv('control_bed')
-labeledData = os.getenv('myLabeled')
+treat = os.getenv('treat_train_bed')
+control = os.getenv('control_train_bed')
+labeledData = os.getenv('trainLabeled')
 SWEMBLPATH  = os.getenv('SWEMBLPATH')
 
 import pandas as pd

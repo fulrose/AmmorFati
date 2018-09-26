@@ -7,9 +7,9 @@ import os
 #treat = 'Treat_chr1_myTest.bam'
 #control = 'Control_chr1_myTest.bam'
 
-treat = os.getenv('treat_bam')
-control = os.getenv('control_bam')
-labeledData = os.getenv('myLabeled')
+treat = os.getenv('treat_train_bam')
+control = os.getenv('control_train_bam')
+labeledData = os.getenv('trainLabeled')
 SICERPATH = os.getenv('SICERPATH')
 
 import pandas as pd
