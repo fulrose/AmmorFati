@@ -2,7 +2,7 @@
 
 CHIPPATH="${AMMOR_HOME}/chipData/"
 
-SPEARMINTPATH="${AMMOR_HOME}/spearmint/spearmint/"
+export SPEARMINTPATH="${AMMOR_HOME}/spearmint/spearmint/"
 SPEARMINTWORK="${AMMOR_HOME}/spearmint/workspace/"
 
 BAMPATH="${AMMOR_HOME}/tools/bamtools/build/install/bin/"
@@ -99,25 +99,25 @@ echo ""
 echo "----------------------------------------"
 echo "#1 macs2 optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
 echo ""
 echo "#1 macs2 Done!" 
 echo "----------------------------------------"
 echo "#2 swembl optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
 echo ""
 echo "#2 swembl Done!" 
 echo "----------------------------------------"
 echo "#3 cisgenome optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
 echo ""
 echo "#3 cisgenome Done!" 
 echo "----------------------------------------"
 echo "#4 SICER optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
 echo ""
 echo "#4 SICER Done!"
 echo "----------------------------------------"

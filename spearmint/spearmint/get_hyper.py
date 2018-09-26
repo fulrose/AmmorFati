@@ -51,7 +51,25 @@ def get_optimized_params(tool_name):
     # return dictionary of params
     return res
 
-print(get_optimized_params('macs2'))
-print(get_optimized_params('cisgenome'))
-print(get_optimized_params('swembl'))
-print(get_optimized_params('sicer'))
+
+#print(get_optimized_params('macs2'))
+#print(get_optimized_params('cisgenome'))
+#print(get_optimized_params('swembl'))
+#print(get_optimized_params('sicer'))
+
+import json
+
+j = '{"macs":' + str(get_optimized_params('macs2')) 
+j+= ', "cisgenome":' + str(get_optimized_params('cisgenome')) 
+j+= ', "swembl":' + str(get_optimized_params('swembl')) 
+j+= ', "sicer":' +str(get_optimized_params('sicer')) + '}'
+
+json_string = j.replace("'", "\"")
+
+print json_string
+
+#d = json.loads(json_string)
+#print d
+#print d['macs']
+
+

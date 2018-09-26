@@ -1,0 +1,10 @@
+[item1]
+type=bartilingexp
+item_name=test.cgw
+bar_folder=./temp/cisgenome/
+lib_num=1
+sample_num=1
+group_num=1
+sample_alias_1=test_t
+sample_group_1=1
+bar_file_1_1=test_t.bar

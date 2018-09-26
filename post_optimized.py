@@ -16,6 +16,9 @@ SWEMBLPATH = os.getenv('SWEMBLPATH')
 SICERPATH = os.getenv('SICERPATH')
 CISGENOMEPATH = os.getenv('CISGENOMEPATH')
 
+SPEARMINTPATH = os.getenv('SPEARMINTPATH')
+
+
 import pandas as pd
 
 def macs_file_read():
@@ -270,32 +273,38 @@ def all_tool_error_rate():
 
     return res
 
-#macs_params = get_optimized_params('macs2')
-q_value = 0.5987#macs_params['q']
-mfold_start = 1#macs_params['m_s']
-mfold_delta = 124#macs_params['m_d']
+import json
 
-#sicer_params = get_optimized_params('sicer')
-genome_size = 0.1#sicer_params['gs']
-window_size = 100#sicer_params['w']
-frag_size = 224#sicer_params['fs']
+cmd = 'python ' + SPEARMINTPATH + 'get_hyper.py'
+output = subprocess.check_output(cmd, shell=True)
 
-#swembl_params = get_optimized_params('swembl')
-frag_length = 85#swembl_params['f']
-penalty_ref = 0.2545#swembl_params['x']
-min_readCnt = 11#swembl_params['m']
+res = json.loads(output)
 
-#cisgenome_params = get_optimized_params('cisgenome')
-binSize = 5#cisgenome_params['b']
-windowSize = 1#cisgenome_params['w']
-ext_length = 154#cisgenome_params['e']
 
-#print 'macs : ', macs_params
-#print 'sicer : ', sicer_params
-#print 'swembl : ', swembl_params
-#print 'cisgenome: ',cisgenome_params
-#print ''
+macs_params = res['macs']
+q_value = macs_params['q'] #float
+mfold_start = int(float(macs_params['m_s'])) #int
+mfold_delta = int(float(macs_params['m_d'])) #int
 
+sicer_params = res['sicer']
+genome_size = sicer_params['gs'] #float
+window_size = int(float(sicer_params['w'])) #int
+frag_size = int(float(sicer_params['fs'])) #int
+
+swembl_params = res['swembl']
+frag_length = int(float(swembl_params['f'])) # int
+penalty_ref = swembl_params['x'] #float
+min_readCnt = int(float(swembl_params['m'])) #int
+
+cisgenome_params = res['cisgenome']
+binSize = int(float(cisgenome_params['b'])) #int
+windowSize = int(float(cisgenome_params['w'])) #int
+ext_length = int(float(cisgenome_params['e'])) #int
+
+print 'macs : ', macs_params
+print 'sicer : ', sicer_params
+print 'swembl : ', swembl_params
+print 'cisgenome: ',cisgenome_params
 
 # MACS
 cmd = MACS2PATH + 'macs2 callpeak'
