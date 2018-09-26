@@ -98,7 +98,21 @@ def get_my_score(_label, arr_peak, arr_noPeak, arr_result):
                 if not flag_start:
                     flag_start = True
 
-                res += (get_min(arr_label[j][1], arr_result[i][1]) - get_max(arr_label[j][0], arr_result[i][0]))
+                overlap_start = get_max(arr_label[j][0], arr_result[i][0])
+                overlap_end = get_min(arr_label[j][1], arr_result[i][1])
+                overlap_ratio = float(overlap_end - overlap_start) / float(arr_label[j][1] - arr_label[j][0])
+
+                if _label == 'peak':
+                    if 0.3 <= overlap_ratio < 0.5:
+                        res += int((arr_label[j][1] - arr_label[j][0]) * 0.6)
+                    elif 0.5 <= overlap_ratio < 0.7:
+                        res += int((arr_label[j][1] - arr_label[j][0]) * 0.8)
+                    elif overlap_ratio >= 0.7:
+                        res += (arr_label[j][1] - arr_label[j][0])
+                    else:
+                        res += (get_min(arr_label[j][1], arr_result[i][1]) - get_max(arr_label[j][0], arr_result[i][0]))
+                else:
+                    res += (get_min(arr_label[j][1], arr_result[i][1]) - get_max(arr_label[j][0], arr_result[i][0]))
 
             elif flag_start:
                 break
@@ -137,10 +151,10 @@ def swembl(job_id, f, x, m):
     subprocess.check_output(cmd, shell=True)
 
     caculated_rate = error_rate(job_id)
-    
+
     print(caculated_rate)
     #time.sleep(np.random.randint(60))
-    
+
     cmd_rm = 'rm ./temp/test' + str(job_id) + '*'
     subprocess.check_output(cmd_rm, shell=True)
 

@@ -59,7 +59,6 @@ export control_train_bed=${control%%.bam}_filtered_train.bed
 export treat_train_aln=${treat%%.bam}_filtered_train.aln
 export control_train_aln=${control%%.bam}_filtered_train.aln
 
-
 export treat_test_bam=${treat%%.bam}_filtered_test.bam
 export control_test_bam=${control%%.bam}_filtered_test.bam
 
@@ -74,22 +73,25 @@ export trainLabeled=$train_labeled
 export testLabeled=$test_labeled
 
 export cisgenome_train_list=${CHIPPATH}cisgenome_train_list.txt
-export cisgenome_test_list=${CHIPPATH}cisgenoe_test_list.txt
+export cisgenome_test_list=${CHIPPATH}cisgenome_test_list.txt
 
-echo $treat_bam
-echo $control_bam
-echo $treat_bed
-echo $control_bed
-echo $treat_aln
-echo $control_aln
-echo $trainLabeled
-echo $testLabeled
-echo $cisgenome_train_list
-echo $cisgenome_test_list
 
 echo "Data Preprocessing Done !"
 echo ""
+echo "----------------------------------------"
+echo "----------------------------------------"
+echo ""
+echo "Pre Optimized Test Labeled Run..."
+#python2 pre_optimized.py
+python2 post_optimized.py
+echo ""
 
+
+
+
+
+
+echo "----------------------------------------"
 echo "----------------------------------------"
 echo ""
 echo "Run Spearmint..."
@@ -97,25 +99,25 @@ echo ""
 echo "----------------------------------------"
 echo "#1 macs2 optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
 echo ""
 echo "#1 macs2 Done!" 
 echo "----------------------------------------"
 echo "#2 swembl optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
 echo ""
 echo "#2 swembl Done!" 
 echo "----------------------------------------"
 echo "#3 cisgenome optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
 echo ""
 echo "#3 cisgenome Done!" 
 echo "----------------------------------------"
 echo "#4 SICER optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
 echo ""
 echo "#4 SICER Done!"
 echo "----------------------------------------"

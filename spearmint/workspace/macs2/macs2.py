@@ -15,16 +15,16 @@ MACS2PATH  = os.getenv('MACS2PATH')
 import pandas as pd
 
 def file_read(job_id):
-    f_name = './temp/test' + str(job_id) + '_peaks.broadPeak'
+    f_name = './temp/test' + str(job_id) + '_peaks.narrowPeak'
 
     label = pd.read_csv(labeledData, sep='\t', header=None)
     result = pd.read_csv(f_name, sep='\t', header=None)
 
     label.columns = ['a', 'start', 'end', 'label']
-    result.columns = ['chr', 'start', 'end', 'score', 'dummy1', 'dummy2', 'dummy3', 'dummy4', 'dummy5']
+    result.columns = ['chr', 'start', 'end', 'dummy1', 'dummy2', 'dummy3', 'dummy4', 'dummy5', 'dummy6', 'dummy7']
 
     label = label.drop(['a'], axis=1)
-    result = result.drop(['chr', 'score', 'dummy1', 'dummy2', 'dummy3', 'dummy4', 'dummy5'], axis=1)
+    result = result.drop(['chr', 'dummy1', 'dummy2', 'dummy3', 'dummy4', 'dummy5', 'dummy6', 'dummy7'], axis=1)
 
     print(result)
 
@@ -94,7 +94,21 @@ def get_my_score(_label, arr_peak, arr_noPeak, arr_result):
                 if not flag_start:
                     flag_start = True
 
-                res += (get_min(arr_label[j][1], arr_result[i][1]) - get_max(arr_label[j][0], arr_result[i][0]))
+                overlap_start = get_max(arr_label[j][0], arr_result[i][0])
+                overlap_end = get_min(arr_label[j][1], arr_result[i][1])
+                overlap_ratio = float(overlap_end - overlap_start) / float(arr_label[j][1] - arr_label[j][0])
+
+                if _label == 'peak':
+                    if 0.3 <= overlap_ratio < 0.5:
+                        res += int((arr_label[j][1] - arr_label[j][0]) * 0.6)
+                    elif 0.5 <= overlap_ratio < 0.7:
+                        res += int((arr_label[j][1] - arr_label[j][0]) * 0.8)
+                    elif overlap_ratio >= 0.7:
+                        res += (arr_label[j][1] - arr_label[j][0])
+                    else:
+                        res += (get_min(arr_label[j][1], arr_result[i][1]) - get_max(arr_label[j][0], arr_result[i][0]))
+                else:
+                    res += (get_min(arr_label[j][1], arr_result[i][1]) - get_max(arr_label[j][0], arr_result[i][0]))
 
             elif flag_start:
                 break
@@ -114,22 +128,21 @@ def error_rate(job_id):
     return 1 - rate
 
 
-def macs2(job_id, q, m_min, m_max):
+def macs2(job_id, q, m_s, m_d):
 
     q_value = q[0]
-    mfold_min = m_min[0]
-    mfold_max = m_max[0]
+    mfold_start = m_s[0]
+    mfold_delta = m_d[0]
 
-    cmd = MACS2PATH + 'macs2 callpeak' 
+    cmd = MACS2PATH + 'macs2 callpeak'
     cmd += ' -t ' + treat
     cmd += ' -c ' + control
-    cmd += ' --outdir ./temp' 
-    cmd += ' --broad '
+    cmd += ' --outdir ./temp'
     cmd += ' -f BAM '
     cmd += ' -g hs'
     cmd += ' -n test' + str(job_id)
     cmd += ' -q ' + str(q_value)
-    cmd += ' -m ' + str(mfold_min) + ' ' + str(mfold_max)
+    cmd += ' -m ' + str(mfold_start) + ' ' + str(mfold_start + mfold_delta)
 
     subprocess.check_output(cmd, shell=True)
 
@@ -148,4 +161,4 @@ def macs2(job_id, q, m_min, m_max):
 def main(job_id, params):
     print 'Anything printed here will end up in the output directory for job #%d' % job_id
     print params
-    return macs2(job_id, params['q'], params['m_min'], params['m_max'])
+    return macs2(job_id, params['q'], params['m_s'], params['m_d'])

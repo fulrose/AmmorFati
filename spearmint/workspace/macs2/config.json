@@ -6,7 +6,7 @@
         "my-machine" : {
             "scheduler"         : "local",
             "max-concurrent"    : 4,
-            "max-finished-jobs" : 10
+            "max-finished-jobs" : 100
         }
     },
 
@@ -24,19 +24,19 @@
             "type" : "FLOAT",
             "size" : 1,
             "min"  : 0.001,
-            "max"  : 0.5
+            "max"  : 0.8
         },
-      	"m_min" : {
+      	"m_s" : {
       	    "type" : "INT",
       	    "size" : 1,
       	    "min" : 1,
-      	    "max" : 10
+      	    "max" : 50
        	},
-        "m_max" : {
+        "m_d" : {
             "type" : "INT",
             "size" : 1,
             "min" : 20,
-            "max" : 100
+            "max" : 200
       }
-    }
-  }
+   }
+}
