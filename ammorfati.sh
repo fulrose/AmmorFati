@@ -14,7 +14,6 @@ export SWEMBLPATH="${AMMOR_HOME}/tools/swembl/"
 echo "AMMOR HOME ::"
 echo $AMMOR_HOME
 
-echo ""
 
 treat=`realpath $1`
 if [ ! -f "$treat" ]; then
@@ -42,13 +41,11 @@ if [ ! -f "$test_labeled" ]; then
 fi
 test_file=`basename $test_labeled`
 
-
+echo "----------------------------------------"
 echo ""
-echo "Data Preprocessing Start !"
+echo "1. Data Preprocessing Start !"
 
-#python2 ${AMMOR_HOME}/data_preprocess.py ${treat} ${control} ${BAMPATH} ${CHIPPATH} ${train_file} ${test_file}
-
-#echo "$dataPreprocess"
+python2 ${AMMOR_HOME}/data_preprocess.py ${treat} ${control} ${BAMPATH} ${CHIPPATH} ${train_file} ${test_file}
 
 export treat_train_bam=${treat%%.bam}_filtered_train.bam
 export control_train_bam=${control%%.bam}_filtered_train.bam
@@ -75,60 +72,56 @@ export testLabeled=$test_labeled
 export cisgenome_train_list=${CHIPPATH}cisgenome_train_list.txt
 export cisgenome_test_list=${CHIPPATH}cisgenome_test_list.txt
 
-
 echo "Data Preprocessing Done !"
 echo ""
 echo "----------------------------------------"
 echo "----------------------------------------"
 echo ""
-echo "Pre Optimized Test Labeled Run..."
-#python2 pre_optimized.py
-python2 post_optimized.py
+echo "2. Pre Test Labeled Run... (about default parameter)"
+python2 pre_optimized.py
 echo ""
-
-
-
-
-
-
+echo "Pre Test labeled Done (temp/<tool>/test*)"
+echo ""
 echo "----------------------------------------"
 echo "----------------------------------------"
 echo ""
-echo "Run Spearmint..."
+echo "3.Run Spearmint..."
 echo ""
 echo "----------------------------------------"
 echo "#1 macs2 optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
 echo ""
-echo "#1 macs2 Done!" 
+echo "#1 macs2 Done!"
 echo "----------------------------------------"
 echo "#2 swembl optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
 echo ""
-echo "#2 swembl Done!" 
+echo "#2 swembl Done!"
 echo "----------------------------------------"
 echo "#3 cisgenome optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
 echo ""
-echo "#3 cisgenome Done!" 
+echo "#3 cisgenome Done!"
 echo "----------------------------------------"
 echo "#4 SICER optimizing start !"
 echo ""
-#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
+python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
 echo ""
 echo "#4 SICER Done!"
 echo "----------------------------------------"
 echo "----------------------------------------"
 echo ""
+echo "Post Optimized Test Labeled Run... (by spearmint's optimized param)"
+python2 post_optimized.py
+echo ""
+echo "Post Test labeled Done (temp/<tool>/optimized*)"
+echo ""
+echo "----------------------------------------"
 echo ""
 echo "ALL Done !!"
-
-
 echo ""
 echo "----------------------------------------"
 echo "----------------------------------------"
-
-

@@ -316,4 +316,12 @@ cmd += ' -o test'
 
 output = subprocess.call(cmd, shell=True)
 
+# LOG
+cmd = 'echo "'
+cmd += str(all_tool_error_rate())
+cmd += '" > pre_optimized.log'
+
+output = subprocess.call(cmd, shell=True)
+
+
 print all_tool_error_rate()

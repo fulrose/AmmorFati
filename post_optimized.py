@@ -353,4 +353,17 @@ cmd += ' -e ' + str(ext_length)
 
 output = subprocess.call(cmd, shell=True)
 
+# LOG
+cmd = 'echo "'
+cmd += str(all_tool_error_rate()) + '\n\n'
+cmd += 'macs optimized param: ' + str(macs_params) + '\n'
+cmd += 'sicer optimized param: ' + str(sicer_params) + '\n'
+cmd += 'swembl optimized param: ' + str(swembl_params) + '\n'
+cmd += 'cisgenome optimized param: ' + str(cisgenome_params) + '\n'
+cmd += '" > post_optimized.log'
+
+output = subprocess.call(cmd, shell=True)
+
+
+
 print all_tool_error_rate()
