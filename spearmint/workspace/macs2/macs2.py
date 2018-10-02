@@ -128,17 +128,17 @@ def error_rate(job_id):
     return 1 - rate
 
 
-def macs2(job_id, q, m_s, m_d):
+def macs2(job_id, params):
 
-    q_value = q[0]
-    mfold_start = m_s[0]
-    mfold_delta = m_d[0]
+    q_value =       params['q'][0]
+    mfold_start =   params['m_s'][0]
+    mfold_delta =   params['m_d'][0]
 
     cmd = MACS2PATH + 'macs2 callpeak'
     cmd += ' -t ' + treat
     cmd += ' -c ' + control
     cmd += ' --outdir ./temp'
-    cmd += ' -f BAM '
+    cmd += ' -f BAM'
     cmd += ' -g hs'
     cmd += ' -n test' + str(job_id)
     cmd += ' -q ' + str(q_value)
@@ -161,4 +161,4 @@ def macs2(job_id, q, m_s, m_d):
 def main(job_id, params):
     print 'Anything printed here will end up in the output directory for job #%d' % job_id
     print params
-    return macs2(job_id, params['q'], params['m_s'], params['m_d'])
+    return macs2(job_id, params)

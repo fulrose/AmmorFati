@@ -5,8 +5,8 @@
     "resources" : {
         "my-machine" : {
             "scheduler"         : "local",
-            "max-concurrent"    : 4,
-            "max-finished-jobs" : 100
+            "max-concurrent"    : 1,
+            "max-finished-jobs" : 81
         }
     },
     "tasks": {

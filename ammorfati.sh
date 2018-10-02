@@ -11,9 +11,14 @@ export MACS2PATH="${AMMOR_HOME}/tools/macs/bin/"
 export SICERPATH="${AMMOR_HOME}/tools/SICERpy/SICERpy/"
 export SWEMBLPATH="${AMMOR_HOME}/tools/swembl/"
 
+echo "----------------------------------------"
+echo ""
+echo "##### AMMORFATI #####"
+echo ""
+echo "----------------------------------------"
+
 echo "AMMOR HOME ::"
 echo $AMMOR_HOME
-
 
 treat=`realpath $1`
 if [ ! -f "$treat" ]; then
@@ -41,11 +46,16 @@ if [ ! -f "$test_labeled" ]; then
 fi
 test_file=`basename $test_labeled`
 
+cur_time=`date`
+`echo "AmmorFati start time ${cur_time}" > ammor_time.log`
+
+start_sec=`date "+%s"`
+
 echo "----------------------------------------"
 echo ""
 echo "1. Data Preprocessing Start !"
 
-python2 ${AMMOR_HOME}/data_preprocess.py ${treat} ${control} ${BAMPATH} ${CHIPPATH} ${train_file} ${test_file}
+#python2 ${AMMOR_HOME}/data_preprocess.py ${treat} ${control} ${BAMPATH} ${CHIPPATH} ${train_file} ${test_file}
 
 export treat_train_bam=${treat%%.bam}_filtered_train.bam
 export control_train_bam=${control%%.bam}_filtered_train.bam
@@ -73,14 +83,24 @@ export cisgenome_train_list=${CHIPPATH}cisgenome_train_list.txt
 export cisgenome_test_list=${CHIPPATH}cisgenome_test_list.txt
 
 echo "Data Preprocessing Done !"
+
+bam_end=`date "+%s"`
+t_res=`echo "$bam_end - $start_sec" | bc`
+echo "Data Preprocess Done : $t_res" >> ammor_time.log
+
 echo ""
 echo "----------------------------------------"
 echo "----------------------------------------"
 echo ""
 echo "2. Pre Test Labeled Run... (about default parameter)"
-python2 pre_optimized.py
+#python2 pre_optimized.py
 echo ""
 echo "Pre Test labeled Done (temp/<tool>/test*)"
+
+pre_test=`date "+%s"`
+t_res=`echo "$pre_test - $start_sec" | bc`
+echo "Pre Test labeled Done : $t_res" >> ammor_time.log
+
 echo ""
 echo "----------------------------------------"
 echo "----------------------------------------"
@@ -90,34 +110,67 @@ echo ""
 echo "----------------------------------------"
 echo "#1 macs2 optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/macs2
 echo ""
 echo "#1 macs2 Done!"
+
+macs_end=`date "+%s"`
+t_res=`echo "$macs_end - $start_sec" | bc`
+echo "Macs Done : $t_res" >> ammor_time.log
+
 echo "----------------------------------------"
 echo "#2 swembl optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/swembl
 echo ""
 echo "#2 swembl Done!"
+
+swembl_end=`date "+%s"`
+t_res=`echo "$swembl_end - $start_sec" | bc`
+echo "Swembl Done : $t_res" >> ammor_time.log
+
 echo "----------------------------------------"
 echo "#3 cisgenome optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/cisgenome
 echo ""
 echo "#3 cisgenome Done!"
+
+cisgenome_end=`date "+%s"`
+t_res=`echo "$cisgenome_end - $start_sec" | bc`
+echo "Cisgenome Done : $t_res" >> ammor_time.log
+
 echo "----------------------------------------"
 echo "#4 SICER optimizing start !"
 echo ""
-python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
+#python2 ${SPEARMINTPATH}/main.py ${SPEARMINTWORK}/SICER
 echo ""
 echo "#4 SICER Done!"
+
+SICER_end=`date "+%s"`
+t_res=`echo "$SICER_end - $start_sec" | bc`
+echo "SICER Done : $t_res" >> ammor_time.log
+
+echo "----------------------------------------"
+echo "----------------------------------------"
+
+echo ""
+echo "Wait for finishing the spearmint... (20s)"
+#sleep 20
+echo ""
+
 echo "----------------------------------------"
 echo "----------------------------------------"
 echo ""
 echo "Post Optimized Test Labeled Run... (by spearmint's optimized param)"
-python2 post_optimized.py
+#python2 post_optimized.py
 echo ""
 echo "Post Test labeled Done (temp/<tool>/optimized*)"
+
+post_test=`date "+%s"`
+t_res=`echo "$post_test - $start_sec" | bc`
+echo "Post optimized Done : $t_res" >> ammor_time.log
+
 echo ""
 echo "----------------------------------------"
 echo ""

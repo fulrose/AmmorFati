@@ -5,7 +5,7 @@
         "my-machine" : {
             "scheduler"         : "local",
             "max-concurrent"    : 4,
-            "max-finished-jobs" : 100
+            "max-finished-jobs" : 80
         }
     },
     "tasks": {

@@ -311,7 +311,7 @@ def main():
 
         # If no resources are accepting jobs, sleep
         # (they might be accepting if suggest takes a while and so some jobs already finished by the time this point is reached)
-        if current_completed_jobs >= resources.values()[0].max_finished_jobs :
+        if current_completed_jobs >= resources.values()[0].max_finished_jobs-1 :
             print 'Done...'
             break ;
 
