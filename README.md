@@ -27,9 +27,29 @@ Fast and convenient data mining tool for Chip-seq analyses.
   - pymongo
 
 > Install
-```
+1. Install Ammorfati
+
+2. export env path named 'AMMOR_HOME' where 'AmmorFati' program is located.
+```sh
+$ export AMMOR_HOME=</AmmorFati/root>
 ```
 
+3. Make 'data' diretory and 'tools' diretory
+- 'data' is dir where the chipseq file is located and 'tools' is dir where the 'peak detection tools' like MACS and 'bamtools' are located. If these files are in a different location, you must modify the path inside the script file.
+```sh
+#!bin/sh
+
+CHIPPATH="${AMMOR_HOME}/chipData/" # data dir
+
+export SPEARMINTPATH="${AMMOR_HOME}/spearmint/spearmint/"
+SPEARMINTWORK="${AMMOR_HOME}/spearmint/workspace/"
+
+BAMPATH="${AMMOR_HOME}/tools/bamtools/build/install/bin/"
+export CISGENOMEPATH="${AMMOR_HOME}/tools/cisgenome/bin/"
+export MACS2PATH="${AMMOR_HOME}/tools/macs/bin/"
+export SICERPATH="${AMMOR_HOME}/tools/SICERpy/SICERpy/"
+export SWEMBLPATH="${AMMOR_HOME}/tools/swembl/"
+```
 * * *
 
 ## LABELED DATA
