@@ -50,6 +50,24 @@ export MACS2PATH="${AMMOR_HOME}/tools/macs/bin/"
 export SICERPATH="${AMMOR_HOME}/tools/SICERpy/SICERpy/"
 export SWEMBLPATH="${AMMOR_HOME}/tools/swembl/"
 ```
+
+4. Install MongoDB & start services
+```sh
+$ mongo
+MongoDB shell version v4.0.2
+connecting to: mongodb://127.0.0.1:27017
+MongoDB server version: 4.0.2
+Server has startup warnings:
+2018-10-03T12:29:15.474+0900 I STORAGE  [initandlisten]
+2018-10-03T12:29:15.474+0900 I STORAGE  [initandlisten] ** WARNING: Using the XFS filesystem is strongly recommended with the WiredTiger storage engine
+2018-10-03T12:29:15.474+0900 I STORAGE  [initandlisten] **          See http://dochub.mongodb.org/core/prodnotes-filesystem
+2018-10-03T12:29:16.335+0900 I CONTROL  [initandlisten]
+2018-10-03T12:29:16.335+0900 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.
+2018-10-03T12:29:16.335+0900 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.
+2018-10-03T12:29:16.335+0900 I CONTROL  [initandlisten]
+---
+```
+
 * * *
 
 ## LABELED DATA
@@ -57,9 +75,55 @@ export SWEMBLPATH="${AMMOR_HOME}/tools/swembl/"
 ```
 * * *
 
-## Getting start
+## Configuration
+If you want to set options about 'spearmint' or other detection tool, check the config files in the 'config' directory.
+you can change the parameter range for each tool, the maximum number of jobs, and the number of threads.
+```json
+{
+    "language"        : "PYTHON",
+    "experiment-name" : "macs2_test",
+    "polling-time"    : 1,
+    "resources" : {
+        "my-machine" : {
+            "scheduler"         : "local",
+            "max-concurrent"    : 4,
+            "max-finished-jobs" : 10
+        }
+    },
+    
 ```
+```json
+
+    "variables" : {
+        "q" : {
+            "type" : "FLOAT",
+            "size" : 1,
+            "min"  : 0.001,
+            "max"  : 0.8
+        },
+        "m_s" : {
+            "type" : "INT",
+            "size" : 1,
+            "min" : 1,
+            "max" : 50
+        },
+        "m_d" : {
+            "type" : "INT",
+            "size" : 1,
+            "min" : 20,
+            "max" : 200
+      }
+   }
+}
 ```
+* * *
+
+## Getting started
+1. Run the AmmorFati.
+```sh
+$ sh ammorfati.sh </Treat(input) file of chipseq data/> </Control file of chipseq data/> </train label file/> </test label file/>
+```
+You need 4 files (Treat file, Control file, label file for train, label file for test)
 * * *
 
 ## CITATION
